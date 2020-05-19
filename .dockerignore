@@ -1,0 +1,8 @@
+node_modules/
+README.md
+.gitignore
+DOCKERFILE
+.dockerignore
+Stuff
+package-lock.json
+.idea/
