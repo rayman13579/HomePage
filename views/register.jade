@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    .row.justify-content-md-center(style='margin-top: 30px')
+        .col-md-4
+            div(class="alert #{messageClass}" role="alert")
+                p #{message}
+            form(method='POST', action='/register')
+                .form-group
+                    label(for='inputUsername') Username
+                    input#inputUsername.form-control(name='username', type='text', placeholder='Username')
+                .form-group
+                    label(for='inputPassword') Password
+                    input#inputPassword.form-control(name='password', type='password', placeholder='Password')
+                .form-group
+                    label(for='inputConfirmPassword') Confirm Password
+                    input#inputConfirmPassword.form-control(name='confirm', type='password', placeholder='Re-enter password')
+                button.btn.btn-primary(type='submit') Register

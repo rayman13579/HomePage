@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    .row.justify-content-md-center(style='margin-top: 100px')
+        .col-md-6
+            .alert(class='#{messageClass}', role='alert')
+                p #{message}
+            form(method='POST', action='/login')
+                .form-group
+                    label(for='inputUsername') Username
+                    input#inputUsername.form-control(name='username', type='text', placeholder='Username')
+                .form-group
+                    label(for='inputPassword') Password
+                    input#inputPassword.form-control(name='password', type='password', placeholder='Password')
+                button.btn.btn-primary(type='submit') Login
+                a(href="/register") #[button.btn.btn-primary()(type='button') Register]
