@@ -12,6 +12,10 @@ var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 
 var app = express();
+var appHttp = express();
+
+//redirect all http requests to https
+appHttp.get("*", (req, res, next) => res.redirect("https://" + req.headers.host + req.path));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,4 +54,7 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+module.exports = {
+	app,
+	appHttp
+}

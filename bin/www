@@ -4,8 +4,10 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('../app').app;
+const appHttp = require('../app').appHttp;
 const debug = require('debug')('site:server');
+const https = require('https');
 const http = require('http');
 const db = require('../db');
 const fs = require('fs');
@@ -15,18 +17,20 @@ const fs = require('fs');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
+var portHttp = normalizePort(process.env.PORTHTTP || '3003');
 app.set('port', port);
-
+appHttp.set('port', portHttp);
 /**
  * Create HTTP server.
  */
 
 const options = {
-  key: fs.readFileSync('../ssl/private.key'),
-  cert: fs.readFileSync('../ssl/certificate.crt')
+  key: fs.readFileSync('ssl/private.key'),
+  cert: fs.readFileSync('ssl/certificate.crt')
 };
 
-const server = http.createServer(options, app);
+const server = https.createServer(options, app);
+const serverHttp = http.createServer(appHttp);
 db.connect();
 
 /**
@@ -34,6 +38,7 @@ db.connect();
  */
 
 server.listen(port);
+serverHttp.listen(portHttp);
 server.on('error', onError);
 server.on('listening', onListening);
 
